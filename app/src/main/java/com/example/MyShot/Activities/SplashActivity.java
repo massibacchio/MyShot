@@ -5,39 +5,48 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.MyShot.Classes.FirebaseWrapper;
 import com.example.MyShot.R;
 
-import java.util.Random;
-
-import com.example.MyShot.Classes.FirebaseManager;
-import com.example.MyShot.Classes.PermissionManager;
-
 public class SplashActivity extends AppCompatActivity {
-
-    private static final String TAG = SplashActivity.class.getCanonicalName();
-    private static final int PERMISSION_REQUEST_CODE = (new Random()).nextInt() & Integer.MAX_VALUE;
-
-
-    private void toActivity(Class<?> activity){
-        Intent intent = new Intent(this,activity);
-        this.startActivity (intent);
-        this.finish();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-    }
 
-
-    //check user log in or not
-    FirebaseManager.Auth auth = new FirebaseManager.Auth();
+        //check if user is logged or not
+        //if not logged ---> log in/register
+        FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
         if (!auth.isAuthenticated()) {
-
-        // Go to Activity for LogIn or SignUp
-        this.toActivity(EnterActivity.class);
+            // Go to Activity for LogIn or SignUp
+            this.goToActivity(EnterActivity.class);
+        }
     }
+
+    private void goToActivity (Class<?> activity){
+        Intent intent = new Intent (this, activity);
+        this.startActivity(intent);
+        finish();
+    }
+
+    //go to MainActivity dopo i permessi garantiti
+   // this.goToActivity(MainActivity.class);
+
+
+
+
+
+
+        //PARTE PER I PERMESSI
+
+
+
+
+
+
+
+
 
 
 

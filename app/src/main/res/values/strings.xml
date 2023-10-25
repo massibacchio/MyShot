@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">MyShot</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    //LOG IN
+    <string name="insertEmail">Insert your e-mail</string>
+    <string name="insertPassword">Insert your password</string>
+    <string name="goToRegister">Not registered yet? Go to Registration</string>
+    <string name="login">Log In</string>
+
+    //SIGN UP
+    <string name="insertPassword2">Insert your password</string>
+    <string name="insertPasswordAgain">Insert your password again please</string>
+    <string name="goToLogin">Do you already have an account? Go to Log-In</string>
+    <string name="signup">Sign Up</string>
 </resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.LoginFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/userEmail"
+            android:layout_width="389dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:autofillHints="@string/insertEmail"
+            android:ems="10"
+            android:hint="@string/insertEmail"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/userPassword"
+            android:layout_width="390dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="0dp"
+            android:autofillHints="@string/insertPassword"
+            android:ems="10"
+            android:hint="@string/insertPassword"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/switchLoginToRegisterLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:gravity="center"
+            android:pointerIcon="hand"
+            android:text="@string/goToRegister" />
+
+        <Button
+            android:id="@+id/logButton"
+            android:layout_width="126dp"
+            android:layout_height="79dp"
+            android:text="@string/login" />
+
+    </LinearLayout>
+</FrameLayout>
