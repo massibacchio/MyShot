@@ -4,61 +4,88 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-
+import com.example.MyShot.Activities.EnterActivity;
+import com.example.MyShot.Classes.FirebaseWrapper;
 import com.example.MyShot.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SignupFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class SignupFragment extends LogFragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SignupFragment() {
-        // Required empty public constructor
-    }
-
-
-    // TODO: Rename and change types and number of parameters
-    public static SignupFragment newInstance(String param1, String param2) {
-        SignupFragment fragment = new SignupFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-
-        //argomenti passati (da activity a fragment) come oggetti usando bundle tramite gli intent
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.initArguments();
 
-        //estraggo gli argomenti
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
-
 
     //oncreateview associa al frag la sua vista
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+        View externalView = inflater.inflate(R.layout.fragment_signup, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_signup, container, false);
+        TextView link = externalView.findViewById(R.id.switchRegisterToLoginLabel);
+        link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((EnterActivity) SignupFragment.this.requireActivity()).renderFragment(true);
+            }
+        });
+
+        Button button = externalView.findViewById(R.id.logButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText email = externalView.findViewById(R.id.userEmail);
+                EditText password = externalView.findViewById(R.id.userPassword);
+                EditText password2 = externalView.findViewById(R.id.userPasswordAgain);
+
+                if (email.getText().toString().isEmpty() ||
+                        password.getText().toString().isEmpty() ||
+                        password2.getText().toString().isEmpty()) {
+                    // TODO: Better error handling + remove this hardcoded strings
+                    email.setError("Email is required");
+                    password.setError("Password is required");
+                    password2.setError("Password is required");
+                    return;
+                }
+
+                if (!password.getText().toString().equals(password2.getText().toString())) {
+                    // TODO: Better error handling + remove this hardcoded strings
+                    Toast
+                            .makeText(SignupFragment.this.requireActivity(), "Passwords are different", Toast.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
+                if (!password.getText().toString().equals(password2.getText().toString())) {
+                    // TODO: Better error handling + remove this hardcoded strings
+                    Toast
+                            .makeText(SignupFragment.this.requireActivity(), "Passwords are different", Toast.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
+                // Perform SignIn
+                FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
+                auth.signUp(
+                        email.getText().toString(),
+                        password.getText().toString(),
+                        FirebaseWrapper.Callback
+                                .newInstance(SignupFragment.this.requireActivity(),
+                                        SignupFragment.this.callbackName,
+                                        SignupFragment.this.callbackPrms)
+                );
+            }
+        });
+
+        return externalView;
+        }
     }
-}
