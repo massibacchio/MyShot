@@ -2,15 +2,22 @@ package com.example.MyShot.Classes;
 
 public class ImageItem {
 
-        private final String imagepath; // Il percorso o l'URI dell'immagine dalla galleria
+    private final int imageResource; // Riferimento all'immagine (ad esempio, un ID di risorsa)
+    private final String text; // Testo associato all'immagine
 
-        public ImageItem(String imagePath) {
-            this.imagepath = imagePath;
-        }
-
-        public String getImagePath() {
-            return imagepath;
-        }
+    public ImageItem(int imageResource, String text) {
+        this.imageResource = imageResource;
+        this.text = text;
     }
+
+    public int getImageResource() {
+        return imageResource;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+}
 
 
