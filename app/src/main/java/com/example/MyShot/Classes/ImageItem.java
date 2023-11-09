@@ -1,16 +1,18 @@
 package com.example.MyShot.Classes;
 
+import android.net.Uri;
+
 public class ImageItem {
 
-    private final int imageResource; // Riferimento all'immagine (ad esempio, un ID di risorsa)
+    private final Uri imageResource; // Riferimento all'immagine (ad esempio, un ID di risorsa)
     private final String text; // Testo associato all'immagine
 
-    public ImageItem(int imageResource, String text) {
+    public ImageItem(Uri imageResource, String text) {
         this.imageResource = imageResource;
         this.text = text;
     }
 
-    public int getImageResource() {
+    public Uri getImageResource() {
         return imageResource;
     }
 
