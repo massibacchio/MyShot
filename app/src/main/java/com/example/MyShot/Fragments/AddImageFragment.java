@@ -30,6 +30,8 @@ public class AddImageFragment extends LogFragment {
 
     View externalView;
     private Uri imageUrl;
+    private ImageView imageView;
+    private boolean valid = false;
 
 
     private static final int REQUEST_IMAGE_PICK = 1001;
@@ -49,7 +51,7 @@ public class AddImageFragment extends LogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         externalView = inflater.inflate(R.layout.fragment_add_image, container, false);
-        ImageView imageView = externalView.findViewById(R.id.imageView);
+        imageView = externalView.findViewById(R.id.imageView);
 
         Button AddImageButton = externalView.findViewById(R.id.AddImageButton);
         // If I go back from the confirmation, show previously uploaded image
@@ -103,6 +105,8 @@ public class AddImageFragment extends LogFragment {
             if (data != null) {
                 String selectedImageUrl = String.valueOf(data.getData());
                 if (selectedImageUrl != null) {
+                    Picasso.get().load(selectedImageUrl).into(imageView);
+                    valid = true;
                     Random random = new Random();
                     int imageId = random.nextInt(Integer.MAX_VALUE);
                     ImageItem imageItem = new ImageItem(selectedImageUrl, imageId);

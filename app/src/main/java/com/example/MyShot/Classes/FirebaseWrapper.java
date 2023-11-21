@@ -10,11 +10,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FirebaseWrapper {
 
@@ -110,6 +114,10 @@ public class FirebaseWrapper {
             return this.getUser().getUid();
         }
 
+        public void signOut (){
+            this.auth.signOut();
+        }
+
 
 
         public static class RTDatabase {
@@ -162,29 +170,31 @@ public class FirebaseWrapper {
             public static void readDbData(FirebaseWrapper.Callback callback) {
                 DatabaseReference ref = getDb();
                 if (ref == null) {
+                    callback.invoke(null); // Chiamata di callback con null se il riferimento al database è nullo
                     return;
                 }
 
-                // Read from the database
-                ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                // Leggi le immagini associate all'utente corrente
+                ref.child(CHILD_IMAGES).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        callback.invoke(task);
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        List<ImageItem> images = new ArrayList<>();
+                        for (DataSnapshot imageSnapshot : snapshot.getChildren()) {
+                            ImageItem imageItem = imageSnapshot.getValue(ImageItem.class);
+                            if (imageItem != null) {
+                                images.add(imageItem);
+                            }
+                        }
+                        callback.invoke(images); // Chiamata di callback con la lista di immagini lette dal database
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        callback.invoke(null); // Chiamata di callback con null in caso di errore
                     }
                 });
             }
         }
-
-
-
-        public void signOut (){
-        this.auth.signOut();
-        }
-
-
-
-
-
     }
 }
 

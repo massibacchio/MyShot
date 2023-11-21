@@ -62,7 +62,7 @@ public class HomeFragment extends LogFragment {
                     queryList.clear();
                     for (DataSnapshot child : snapshot.getChildren()) {
                         Iterable<DataSnapshot> ImageChildren = child.child(CHILD_IMAGES).getChildren();
-                        for (DataSnapshot childIm : snapshot.getChildren()) {
+                        for (DataSnapshot childIm : ImageChildren) {
                             ImageItem img = childIm.getValue(ImageItem.class);
                             queryList.add(img);
                         }

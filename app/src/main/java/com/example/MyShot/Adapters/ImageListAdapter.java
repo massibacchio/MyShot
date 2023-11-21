@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,10 +35,10 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         ImageItem imageItem = imageData.get(position);
-
-            Glide.with(context)
-                    .load(imageItem.getImageUrl()) // Utilizza l'URL o il percorso dell'immagine
-                    .into(holder.imageView);
+        Glide.with(context)
+                .load(imageItem.getImageUrl())
+                .override(700, 400)
+                .into(holder.imageView);
     }
 
     @Override
@@ -49,12 +48,10 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
 
     public static class ImageViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView descriptionTextView;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
-            //descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
         }
     }
 }

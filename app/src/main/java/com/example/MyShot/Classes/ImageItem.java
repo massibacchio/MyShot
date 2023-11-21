@@ -9,6 +9,8 @@ public class ImageItem implements Serializable{
     private String ImageUrl;
     private static int ImageId;
 
+    public ImageItem() {}
+
     public ImageItem(String imageUrl, int imageId) {
         this.ImageUrl = imageUrl;
         this.ImageId = imageId;
