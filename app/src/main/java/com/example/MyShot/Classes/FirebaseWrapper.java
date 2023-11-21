@@ -24,9 +24,11 @@ public class FirebaseWrapper {
         private final Method method;
         private final Object thiz;
 
+
         public Callback(Method method, Object thiz) {
             this.method = method;
             this.thiz = thiz;
+
         }
 
         //la callback specifica quale metodo eseguire quando la richiesta firebase termina
@@ -52,8 +54,8 @@ public class FirebaseWrapper {
                 throw new RuntimeException(e);
             }
         }
-    }
 
+    }
 
 
     //define methods for login & registration
@@ -65,9 +67,9 @@ public class FirebaseWrapper {
 
         //costruttore
         public Auth(){
+
             this.auth= FirebaseAuth.getInstance();
         }
-
 
         //check if user is authenticated
         public boolean isAuthenticated() {
@@ -102,10 +104,21 @@ public class FirebaseWrapper {
                         }
                     });
         }
+        public String getUid() {
+            // TODO: remove this assert and better handling of non logged-in users
+            assert this.isAuthenticated();
+            return this.getUser().getUid();
+        }
 
-        public class RTDatabase {
 
-            private DatabaseReference getDb() {
+
+        public static class RTDatabase {
+
+            private static final String TAG = RTDatabase.class.getCanonicalName();
+            private static final String CHILD_IMAGES = "Images";
+            private static final String CHILD_USERS = "Users";
+
+            public static DatabaseReference getDb() {
                 DatabaseReference ref = FirebaseDatabase.getInstance("https://myshot-5cef3-default-rtdb.europe-west1.firebasedatabase.app/").getReference(CHILD);
 
                 // Return the reference to the current user's data
@@ -117,24 +130,36 @@ public class FirebaseWrapper {
                 return ref.child(uid);
             }
 
-            public void writeDbData(ImageItem imageItem) {
-                DatabaseReference ref = getDb();
-                if (ref == null) {
-                    return;
-                }
+            // Dentro il metodo writeDbData in FirebaseWrapper$Auth$RTDatabase
+            public static void writeDbData(ImageItem imageItem) {
+                FirebaseDatabase firebaseDatabase;
+                DatabaseReference databaseReference;
 
-                // Generate a unique key for the new image data
-                String key = ref.push().getKey();
-                if (key == null) {
-                    Log.e(TAG, "Failed to generate a unique key.");
-                    return;
-                }
+                firebaseDatabase = FirebaseDatabase.getInstance("https://myshot-5cef3-default-rtdb.europe-west1.firebasedatabase.app/");
 
-                // Set the image data with the unique key
-                ref.child(key).setValue(imageItem);
+                FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
+                databaseReference = firebaseDatabase.getReference().child(CHILD_USERS).child(auth.getUid()).child(CHILD_IMAGES);
+
+                databaseReference.child(String.valueOf(imageItem.getImageId())).setValue(imageItem);
+
+                /*
+                if (imageItem != null) {
+                    DatabaseReference ref = getDb();
+                    if (ref != null) {
+                        Map<String, Object> imageItemMap = new HashMap<>();
+                        imageItemMap.put("imageUri", imageItem.getImageUrl().toString());
+
+                        ref.child(key).setValue(imageItemMap);
+                        Log.d(TAG, "Data written to database: " + imageItem.toString());
+                    } else {
+                        Log.e(TAG, "Database reference is null.");
+                    }
+                } else {
+                    Log.e(TAG, "ImageItem or key is null.");
+                }*/
             }
 
-            public void readDbData(FirebaseWrapper.Callback callback) {
+            public static void readDbData(FirebaseWrapper.Callback callback) {
                 DatabaseReference ref = getDb();
                 if (ref == null) {
                     return;
@@ -158,11 +183,8 @@ public class FirebaseWrapper {
 
 
 
-        public String getUid() {
-            // TODO: remove this assert and better handling of non logged-in users
-            assert this.isAuthenticated();
-            return this.getUser().getUid();
-        }
+
+
     }
 }
 

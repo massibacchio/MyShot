@@ -1,23 +1,58 @@
 package com.example.MyShot.Classes;
 
-import android.net.Uri;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 
-public class ImageItem {
+public class ImageItem implements Serializable{
 
-    private final Uri imageResource; // Riferimento all'immagine (ad esempio, un ID di risorsa)
-    private final String text; // Testo associato all'immagine
+    private String ImageUrl;
+    private static int ImageId;
 
-    public ImageItem(Uri imageResource, String text) {
-        this.imageResource = imageResource;
-        this.text = text;
+    public ImageItem(String imageUrl, int imageId) {
+        this.ImageUrl = imageUrl;
+        this.ImageId = imageId;
+
     }
 
-    public Uri getImageResource() {
-        return imageResource;
+    //getter and setter
+    public String getImageUrl() {
+        return ImageUrl;
+
+    }
+    public static int getImageId() {
+        return ImageId;
+
     }
 
-    public String getText() {
-        return text;
+
+    void setImageUrl(String imageUrl){
+        ImageUrl = imageUrl;
+    }
+    void setImageId(int imageId){
+        ImageId =  imageId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ImageItem imageItem = (ImageItem) o;
+        return ImageUrl.equals(imageItem.ImageUrl);
+        }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ImageUrl, ImageId);
+    }
+
+    public static class Collection<T extends ImageItem> {
+        private static final String TAG = Collection.class.getCanonicalName();
+        public final List<T> images;
+
+        public Collection(List<T> images) {
+            this.images = images;
+        }
     }
 
 }
