@@ -1,6 +1,5 @@
 package com.example.MyShot.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -15,7 +14,7 @@ import com.example.MyShot.Fragments.SignupFragment;
 import com.example.MyShot.R;
 
 public class EnterActivity extends AppCompatActivity {
-    private static final String TAG = EnterActivity.class.getCanonicalName();
+
 
     private FragmentManager fragmentManager = null;
 
@@ -25,9 +24,7 @@ public class EnterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter);
 
-
-        //TODO: render fragment
-        //true perchè vogliamo sempre andare al login di default
+        //true because login fragment is the first choice
         renderFragment(true);
         {
 
@@ -37,17 +34,17 @@ public class EnterActivity extends AppCompatActivity {
 
 
 
-    //come input prende callback e la lista di arg del metodo Login o signup;
-    //cioè ci dice quale fragment caricare nel container
+    //as inputs:  callback and arg list of login or signup method
+    //tells us which fragment has to be loaded in the container
 
     public void renderFragment(boolean isLogin) {
 
-        Fragment fragment = null;
+        Fragment fragment;
 
         if (isLogin){
-            fragment = LogFragment.newInstance(LoginFragment.class, "signinCallback", boolean.class);
+            fragment = LogFragment.newInstance(LoginFragment.class, "signInCallback", boolean.class);
         } else {
-            fragment = LogFragment.newInstance(SignupFragment.class, "signinCallback", boolean.class);
+            fragment = LogFragment.newInstance(SignupFragment.class, "signInCallback", boolean.class);
     }
 
        if (this.fragmentManager== null){
@@ -56,9 +53,9 @@ public class EnterActivity extends AppCompatActivity {
         }
 
         FragmentTransaction fragmentTransaction = this.fragmentManager.beginTransaction();
-        //1.ottimizza le operazioni
-        //2.all interno del contenitore 'loginRegisterFragment' inserisci il fragment 'fragment'
-        // For optimizations -- See: https://developer.android.com/reference/androidx/fragment/app/FragmentTransaction#setReorderingAllowed(boolean)
+        //1.optimizes operations
+        //2.inside the container 'loginRegisterFragment' put Fragment 'fragment'
+
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.replace(R.id.loginRegisterFragment, fragment);
 
@@ -66,20 +63,23 @@ public class EnterActivity extends AppCompatActivity {
     }
 
 
-    //questo boolean ci dice se il processo ha avuto successo o meno
-    public void signinCallback(boolean result){
+
+
+    //this boolean says is this process was successful
+    public void signInCallback(boolean result){
         if(!result) {
-            //TODO: better handling of the error
+
             Toast.makeText(this, "Username or pw are not valid", Toast.LENGTH_SHORT).show();
         }
         else{
-                // go to splash
-                Intent intent = new Intent(this, SplashActivity.class);
-                this.startActivity(intent);
-                this.finish();
+                //LogFragment.newInstance(LoginFragment.class, "signInCallback", boolean.class);
             }
         }
-    }
+
+
+
+
+}
 
 
 

@@ -30,15 +30,7 @@ public class SplashActivity extends AppCompatActivity {
         finish();
     }
 
-    //go to MainActivity dopo i permessi garantiti
-   // this.goToActivity(MainActivity.class);
 
-
-
-
-
-
-        //PARTE PER I PERMESSI
 
 
 

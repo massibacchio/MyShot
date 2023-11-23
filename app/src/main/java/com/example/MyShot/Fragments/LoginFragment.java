@@ -1,5 +1,6 @@
 package com.example.MyShot.Fragments;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,11 +13,19 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 
 import com.example.MyShot.Activities.EnterActivity;
+import com.example.MyShot.Activities.MainActivity;
 import com.example.MyShot.Classes.FirebaseWrapper;
 import com.example.MyShot.R;
 
 
 public class LoginFragment extends LogFragment {
+
+    private final static String TAG = FirebaseWrapper.Callback.class.getCanonicalName();
+    EnterActivity enterActivity;
+
+    FirebaseWrapper firebaseWrapper;
+
+    String username;
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +45,8 @@ public class LoginFragment extends LogFragment {
         // aggiungiamo a questa testview l'Onclick per reagire al tap e passare al SignUp
         TextView link = externalView.findViewById(R.id.switchLoginToRegisterLabel);
 
-        //dal login frag voglio andare al frag di signup
+
+        //dal login frag voglio andare al frag di signup con bottone
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,8 +54,8 @@ public class LoginFragment extends LogFragment {
             }
         });
 
-        Button button = externalView.findViewById(R.id.logButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button Logbutton = externalView.findViewById(R.id.logButton);
+        Logbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EditText email = externalView.findViewById(R.id.userEmail);
@@ -58,9 +68,12 @@ public class LoginFragment extends LogFragment {
                     return;
                 }
 
-                // fa il log-in leggendo i campi dagli edittext e chiamo il metodo di firebase
 
                 FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
+                auth.signOut();
+
+                // perform login reading edittext and call firebase method
+
                 auth.signIn(
                         email.getText().toString(),
                         password.getText().toString(),
@@ -69,8 +82,16 @@ public class LoginFragment extends LogFragment {
                                         LoginFragment.this.callbackName,
                                         LoginFragment.this.callbackPrms)
                 );
+
+
+                enterActivity = (EnterActivity) getActivity();
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                requireContext().startActivity(intent);
+
             }
         });
+
+
 
         return externalView;
     }

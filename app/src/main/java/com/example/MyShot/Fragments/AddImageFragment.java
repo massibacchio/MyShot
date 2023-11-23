@@ -11,13 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.MyShot.Activities.MainActivity;
 import com.example.MyShot.Classes.FirebaseWrapper;
 import com.example.MyShot.Classes.ImageItem;
 import com.example.MyShot.R;
@@ -31,14 +32,20 @@ public class AddImageFragment extends LogFragment {
     View externalView;
     private Uri imageUrl;
     private ImageView imageView;
+    private EditText imageTitle;
+    private EditText imageDescription;
     private boolean valid = false;
+
+    //per differenziare i bottoni
+    private boolean confirm = false;
+
 
 
     private static final int REQUEST_IMAGE_PICK = 1001;
     private FirebaseWrapper.Auth.RTDatabase rtDatabase;
 
     private final static String TAG = FirebaseWrapper.Callback.class.getCanonicalName();
-    MainActivity mainActivity;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +59,8 @@ public class AddImageFragment extends LogFragment {
                              Bundle savedInstanceState) {
         externalView = inflater.inflate(R.layout.fragment_add_image, container, false);
         imageView = externalView.findViewById(R.id.imageView);
+        imageTitle = externalView.findViewById(R.id.editTextTitle);
+        imageDescription = externalView.findViewById(R.id.editTextDescription);
 
         Button AddImageButton = externalView.findViewById(R.id.AddImageButton);
         // If I go back from the confirmation, show previously uploaded image
@@ -59,9 +68,19 @@ public class AddImageFragment extends LogFragment {
             Picasso.get().load(imageUrl).into(imageView);
         }
 
+        Button ConfirmButton = externalView.findViewById(R.id.ConfirmButton);
+        ConfirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                confirm = true;
+                requestPermission();
+            }
+        });
+
         AddImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                confirm = false;
                 if (checkPermission()) {
                     openGallery();
                 } else {
@@ -107,14 +126,21 @@ public class AddImageFragment extends LogFragment {
                 if (selectedImageUrl != null) {
                     Picasso.get().load(selectedImageUrl).into(imageView);
                     valid = true;
-                    Random random = new Random();
-                    int imageId = random.nextInt(Integer.MAX_VALUE);
-                    ImageItem imageItem = new ImageItem(selectedImageUrl, imageId);
-                    DatabaseReference imageDatabaseRef = FirebaseWrapper.Auth.RTDatabase.getDb();
-                    if (imageDatabaseRef != null) {
-                        new FirebaseWrapper.Auth.RTDatabase().writeDbData(imageItem);
-                    } else {
-                        Log.e(TAG, "Database reference is null.");
+                    if (confirm) {
+                        Random random = new Random();
+                        int imageId = random.nextInt(Integer.MAX_VALUE);
+
+                        if (imageDescription.getText().equals("") || imageTitle.getText().equals("")) {
+                            Toast.makeText(getContext(), "error", Toast.LENGTH_LONG).show();
+                        } else {
+                            ImageItem imageItem = new ImageItem(selectedImageUrl, imageId, imageDescription.getText().toString(), imageTitle.getText().toString());
+                            DatabaseReference imageDatabaseRef = FirebaseWrapper.Auth.RTDatabase.getDb();
+                            if (imageDatabaseRef != null) {
+                                new FirebaseWrapper.Auth.RTDatabase().writeDbData(imageItem);
+                            } else {
+                                Log.e(TAG, "Database reference is null.");
+                            }
+                        }
                     }
                 }
             }

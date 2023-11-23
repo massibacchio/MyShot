@@ -149,22 +149,17 @@ public class FirebaseWrapper {
                 databaseReference = firebaseDatabase.getReference().child(CHILD_USERS).child(auth.getUid()).child(CHILD_IMAGES);
 
                 databaseReference.child(String.valueOf(imageItem.getImageId())).setValue(imageItem);
+            }
 
-                /*
-                if (imageItem != null) {
-                    DatabaseReference ref = getDb();
-                    if (ref != null) {
-                        Map<String, Object> imageItemMap = new HashMap<>();
-                        imageItemMap.put("imageUri", imageItem.getImageUrl().toString());
+            public static void writeDbUsername(String username) {
+                FirebaseDatabase firebaseDatabase;
+                DatabaseReference databaseReference;
 
-                        ref.child(key).setValue(imageItemMap);
-                        Log.d(TAG, "Data written to database: " + imageItem.toString());
-                    } else {
-                        Log.e(TAG, "Database reference is null.");
-                    }
-                } else {
-                    Log.e(TAG, "ImageItem or key is null.");
-                }*/
+                firebaseDatabase = FirebaseDatabase.getInstance("https://myshot-5cef3-default-rtdb.europe-west1.firebasedatabase.app/");
+
+                FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
+                databaseReference = firebaseDatabase.getReference().child(CHILD_USERS).child(auth.getUid());
+                databaseReference.setValue(username);
             }
 
             public static void readDbData(FirebaseWrapper.Callback callback) {
@@ -190,7 +185,7 @@ public class FirebaseWrapper {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        callback.invoke(null); // Chiamata di callback con null in caso di errore
+                        callback.invoke(null);
                     }
                 });
             }

@@ -5,6 +5,15 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.LoginFragment">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src=" "
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:layout_gravity="top"/>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,14 +47,15 @@
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             android:gravity="center"
-            android:pointerIcon="hand"
             android:text="@string/goToRegister" />
 
         <Button
             android:id="@+id/logButton"
             android:layout_width="126dp"
-            android:layout_height="79dp"
-            android:text="@string/login" />
+            android:layout_height="58dp"
+            android:backgroundTint="@color/blue"
+            android:text="@string/login"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 </FrameLayout>
