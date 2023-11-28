@@ -8,17 +8,17 @@ public class ImageItem implements Serializable{
 
     private String ImageUrl;
     private static int ImageId;
-    // private static int ImageId;
-    private String Description;
-    private String Author;
+    private String ImageDescription;
+    private String Photographer;
+    private String ImageTitle;
 
     public ImageItem() {}
 
-public ImageItem(String imageUrl, int imageId, String description, String author) {
+public ImageItem(String imageUrl, int imageId, String imageDescription, String title) {
         this.ImageUrl = imageUrl;
-        this.ImageId = imageId;
-        this.Description = description;
-        this.Author = author;
+        ImageId = imageId;
+        this.ImageDescription = imageDescription;
+        this.ImageTitle = title;
 
     }
 
@@ -27,34 +27,42 @@ public ImageItem(String imageUrl, int imageId, String description, String author
         return ImageUrl;
 
     }
+
+    public String getImageTitle() {
+        return ImageTitle;
+
+    }
     public static int getImageId() {
         return ImageId;
 
     }
-    public String getDescription() {
-        return Description;
+    public String getImageDescription() {
+        return ImageDescription;
 
     }
-    public String getAuthor() {
-        return Author;
+    public String getPhotographer() {
+        return Photographer;
 
     }
-
-
-    void setImageUrl(String imageUrl){
+    public void setImageUrl(String imageUrl){
 
         ImageUrl = imageUrl;
     }
-    void setImageId(int imageId){
+
+    public void setImageTitle(String imageTitle){
+
+        ImageTitle = imageTitle;
+    }
+    public void setImageId(int imageId){
 
         ImageId =  imageId;
     }
-    void setDescription(String description){
+    public void setDescription(String imageDescription){
 
-        Description =  description;
+        ImageDescription =  imageDescription;
     }
-    void setAuthor(String author){
-        Author =  author;
+    public void setPhotographer(String photographer){
+        Photographer =  photographer;
     }
 
     @Override
@@ -63,14 +71,15 @@ public ImageItem(String imageUrl, int imageId, String description, String author
         if (o == null || getClass() != o.getClass()) return false;
         ImageItem imageItem = (ImageItem) o;
         return ImageUrl.equals(imageItem.ImageUrl) &&
-                Author.equals(imageItem.Author) &&
-                Description.equals(imageItem.Description) &&
-                ImageId == imageItem.ImageId;
+                Photographer.equals(imageItem.Photographer) &&
+                ImageDescription.equals(imageItem.ImageDescription) &&
+                ImageId == imageItem.ImageId &&
+                ImageTitle.equals(imageItem.ImageTitle);
         }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ImageUrl, ImageId, Description, Author);
+        return Objects.hash(ImageUrl, ImageId, ImageDescription, Photographer, ImageTitle);
     }
 
     public static class Collection<T extends ImageItem> {

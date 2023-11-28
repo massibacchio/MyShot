@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.MyShot.Activities.MainActivity;
 import com.example.MyShot.Adapters.ImageListAdapter;
+import com.example.MyShot.Classes.FirebaseWrapper;
 import com.example.MyShot.Classes.ImageItem;
 import com.example.MyShot.R;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +27,8 @@ import java.util.List;
 
 public class HomeFragment extends LogFragment {
     MainActivity mainActivity;
+
+    private final static String TAG = FirebaseWrapper.Callback.class.getCanonicalName();
 
     View externalView;
     private RecyclerView recyclerView;
@@ -45,14 +47,13 @@ public class HomeFragment extends LogFragment {
 
         mainActivity = (MainActivity) getActivity();
 
-        // we have to discern whether the user has set the filters or not
-        // check if the filter values are equal to min/max values
-        // if they are equal, show the 5 latest Ads
-        // if not, do a search based on the filter values, but bear in mind that he/she hasn't inserted any string in the search bar yet
         DatabaseReference databaseReference = FirebaseDatabase.
                 getInstance("https://myshot-5cef3-default-rtdb.europe-west1.firebasedatabase.app/").
                 getReference().
                 child(CHILD_USERS);
+
+
+
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

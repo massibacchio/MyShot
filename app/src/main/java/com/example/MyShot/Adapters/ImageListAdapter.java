@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +40,12 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
                 .load(imageItem.getImageUrl())
                 .override(700, 400)
                 .into(holder.imageView);
+
+        //holder.photographerTextView.setText("Photographer: " + imageItem.getPhotographer());  //TODO: fixare
+        holder.descriptionTextView.setText("Description: " + imageItem.getImageDescription());
+        holder.titleTextView.setText("Title: " + imageItem.getImageTitle());
+       // holder.photographerTextView.setText("Photographer: " + ); // Utilizza lo username fornito
+        //holder.contactTextView.setText("Contact: " + email); // Utilizza l'email fornita
     }
 
     @Override
@@ -48,10 +55,19 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
 
     public static class ImageViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
+        TextView photographerTextView;
+        TextView descriptionTextView;
+        TextView contactTextView;
+        TextView titleTextView;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
+            //photographerTextView = itemView.findViewById(R.id.photographerTextView);
+            titleTextView = itemView.findViewById(R.id.titleTextView);
+            descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+            //contactTextView = itemView.findViewById(R.id.contactTextView);
+
         }
     }
 }

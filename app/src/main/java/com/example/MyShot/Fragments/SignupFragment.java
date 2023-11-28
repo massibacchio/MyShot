@@ -11,21 +11,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.example.MyShot.Activities.EnterActivity;
 import com.example.MyShot.Activities.MainActivity;
 import com.example.MyShot.Classes.FirebaseWrapper;
 import com.example.MyShot.R;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class SignupFragment extends LogFragment {
 
     EnterActivity enterActivity;
-
     private final static String TAG = FirebaseWrapper.Callback.class.getCanonicalName();
 
     @Override
@@ -64,8 +61,7 @@ public class SignupFragment extends LogFragment {
 
                 if (email.getText().toString().isEmpty() ||
                         password.getText().toString().isEmpty() ||
-                        password2.getText().toString().isEmpty() ||
-                        username.getText().toString().isEmpty()) {
+                        password2.getText().toString().isEmpty()) {
 
                     // TODO: Better error handling + remove this hardcoded strings
                     email.setError("Email is required");
@@ -105,14 +101,20 @@ public class SignupFragment extends LogFragment {
                                         SignupFragment.this.callbackPrms)
                 );
 
+                try {
+                    TimeUnit.SECONDS.sleep(3);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+
                 // Creare il bundle e passare la stringa
                 Bundle bundle = new Bundle();
                 bundle.putString("username", username.getText().toString());
 
-                // Creare il FragmentB e impostare il bundle
+                // Creare il Fragment e impostare il bundle
                 LoginFragment loginFragment = new LoginFragment();
                 loginFragment.setArguments(bundle);
-
 
                 if (username != null) {
                     DatabaseReference imageDatabaseRef = FirebaseWrapper.Auth.RTDatabase.getDb();
@@ -125,9 +127,12 @@ public class SignupFragment extends LogFragment {
                     Log.e(TAG, "Username is null.");
                 }
 
+
                 enterActivity = (EnterActivity) getActivity();
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                requireContext().startActivity(intent);
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    requireContext().startActivity(intent);
+
+
 
 
             }
@@ -135,26 +140,11 @@ public class SignupFragment extends LogFragment {
 
         return externalView;
 
-        }
-    // Metodo per sostituire un fragment con un altro
-    private void replaceFragment(Fragment fragment) {
-        // Ottieni il FragmentManager dal fragment corrente
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-
-        // Inizia una transazione del fragment
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        // Sostituisci il fragment corrente con il nuovo fragment
-        fragmentTransaction.replace(R.id.loginRegisterFragment, fragment);
-
-        // Aggiungi la transazione alla back stack, in modo che l'utente possa tornare indietro
-        fragmentTransaction.addToBackStack(null);
-
-        // Esegui la transazione
-        fragmentTransaction.commit();
     }
 
-
 }
+
+
+
 
 

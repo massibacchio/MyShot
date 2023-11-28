@@ -13,20 +13,54 @@
     app:strokeColor="@color/cardcolor"
     app:strokeWidth="1dp">
 
+    <!-- Layout orizzontale per posizionare l'immagine a sinistra e i campi Author e Description a destra -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        android:background="@android:color/white"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
+        <!-- ImageView per l'immagine (a sinistra) -->
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"/>
+
+        <!-- Layout verticale per i campi (a destra) -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            />
+            android:orientation="vertical"
+            android:paddingStart="16dp">
+
+            <!-- TextView per photographer/userName -->
+            <TextView
+                android:id="@+id/photographerTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Photographer: "
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title: "/>
+
+            <!-- TextView per la Description -->
+            <TextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description: "/>
+            <TextView
+                android:id="@+id/contactTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contact me at: "/>
 
         </LinearLayout>
+
+    </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>
 

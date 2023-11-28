@@ -88,6 +88,7 @@ public class LoginFragment extends LogFragment {
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 requireContext().startActivity(intent);
 
+
             }
         });
 

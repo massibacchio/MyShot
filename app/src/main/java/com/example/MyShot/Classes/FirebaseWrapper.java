@@ -109,9 +109,9 @@ public class FirebaseWrapper {
                     });
         }
         public String getUid() {
-            // TODO: remove this assert and better handling of non logged-in users
-            assert this.isAuthenticated();
-            return this.getUser().getUid();
+            if (this.isAuthenticated())
+                return this.getUser().getUid();
+            return null;
         }
 
         public void signOut (){
@@ -125,6 +125,7 @@ public class FirebaseWrapper {
             private static final String TAG = RTDatabase.class.getCanonicalName();
             private static final String CHILD_IMAGES = "Images";
             private static final String CHILD_USERS = "Users";
+            private static final String CHILD_USERNAME = "Username";
 
             public static DatabaseReference getDb() {
                 DatabaseReference ref = FirebaseDatabase.getInstance("https://myshot-5cef3-default-rtdb.europe-west1.firebasedatabase.app/").getReference(CHILD);
@@ -159,7 +160,7 @@ public class FirebaseWrapper {
 
                 FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
                 databaseReference = firebaseDatabase.getReference().child(CHILD_USERS).child(auth.getUid());
-                databaseReference.setValue(username);
+                databaseReference.child(CHILD_USERNAME).setValue(username);
             }
 
             public static void readDbData(FirebaseWrapper.Callback callback) {

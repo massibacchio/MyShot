@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.MyShot.Classes.FirebaseWrapper;
 import com.example.MyShot.Classes.ImageItem;
@@ -51,8 +52,30 @@ public class AddImageFragment extends LogFragment {
         super.onCreate(savedInstanceState);
         this.initArguments();
 
-        rtDatabase = new FirebaseWrapper.Auth.RTDatabase();
+        //rtDatabase = new FirebaseWrapper.Auth.RTDatabase();
     }
+
+
+
+
+    private void writeToDatabase() {
+        Random random = new Random();
+        int imageId = random.nextInt(Integer.MAX_VALUE);
+
+        if (imageDescription.getText().toString().isEmpty() || imageTitle.getText().toString().isEmpty()) {
+            Toast.makeText(getContext(), "Error: Empty title or description", Toast.LENGTH_LONG).show();
+        } else {
+            ImageItem imageItem = new ImageItem(imageUrl.toString(), imageId, imageDescription.getText().toString(), imageTitle.getText().toString());
+            DatabaseReference imageDatabaseRef = FirebaseWrapper.Auth.RTDatabase.getDb();
+            if (imageDatabaseRef != null) {
+                new FirebaseWrapper.Auth.RTDatabase().writeDbData(imageItem);
+            } else {
+                Log.e(TAG, "Database reference is null.");
+            }
+        }
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,17 +86,29 @@ public class AddImageFragment extends LogFragment {
         imageDescription = externalView.findViewById(R.id.editTextDescription);
 
         Button AddImageButton = externalView.findViewById(R.id.AddImageButton);
+        Button ConfirmButton = externalView.findViewById(R.id.ConfirmButton);
+
         // If I go back from the confirmation, show previously uploaded image
         if (imageUrl != null){
             Picasso.get().load(imageUrl).into(imageView);
         }
 
-        Button ConfirmButton = externalView.findViewById(R.id.ConfirmButton);
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 confirm = true;
-                requestPermission();
+                if (valid) {
+                    writeToDatabase();
+                } else {
+                    Toast.makeText(getContext(), "Select an image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                int fragmentContainerId = ((ViewGroup) requireView().getParent()).getId();
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(fragmentContainerId, new AddImageFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
@@ -91,6 +126,8 @@ public class AddImageFragment extends LogFragment {
 
         return externalView;
     }
+
+
 
     private boolean checkPermission() {
         int permission = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -122,25 +159,13 @@ public class AddImageFragment extends LogFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
             if (data != null) {
-                String selectedImageUrl = String.valueOf(data.getData());
-                if (selectedImageUrl != null) {
-                    Picasso.get().load(selectedImageUrl).into(imageView);
+                imageUrl = data.getData();
+                if (imageUrl != null) {
+                    Picasso.get().load(imageUrl).into(imageView);
                     valid = true;
                     if (confirm) {
-                        Random random = new Random();
-                        int imageId = random.nextInt(Integer.MAX_VALUE);
-
-                        if (imageDescription.getText().equals("") || imageTitle.getText().equals("")) {
-                            Toast.makeText(getContext(), "error", Toast.LENGTH_LONG).show();
-                        } else {
-                            ImageItem imageItem = new ImageItem(selectedImageUrl, imageId, imageDescription.getText().toString(), imageTitle.getText().toString());
-                            DatabaseReference imageDatabaseRef = FirebaseWrapper.Auth.RTDatabase.getDb();
-                            if (imageDatabaseRef != null) {
-                                new FirebaseWrapper.Auth.RTDatabase().writeDbData(imageItem);
-                            } else {
-                                Log.e(TAG, "Database reference is null.");
-                            }
-                        }
+                        writeToDatabase(); // Call to write data to database
+                        //writeToDatabase(FirebaseWrapper.Auth.getCurrentUser().getUid());
                     }
                 }
             }
