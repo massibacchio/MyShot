@@ -6,7 +6,7 @@
     <string name="insertEmail">Insert your e-mail</string>
     <string name="insertUsername">Insert your username</string>
     <string name="insertPassword">Insert your password</string>
-    <string name="goToRegister">Not registered yet? Go to Registration</string>
+    <string name="goToRegistration">Not registered yet? Go to Registration</string>
     <string name="login">Log In</string>
 
 

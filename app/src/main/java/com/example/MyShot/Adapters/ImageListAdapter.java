@@ -42,10 +42,12 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
                 .into(holder.imageView);
 
         //holder.photographerTextView.setText("Photographer: " + imageItem.getPhotographer());  //TODO: fixare
-        holder.descriptionTextView.setText("Description: " + imageItem.getImageDescription());
+
         holder.titleTextView.setText("Title: " + imageItem.getImageTitle());
-       // holder.photographerTextView.setText("Photographer: " + ); // Utilizza lo username fornito
-        //holder.contactTextView.setText("Contact: " + email); // Utilizza l'email fornita
+        holder.descrTextView.setText("Description: " + imageItem.getImageDescription());
+        holder.photographerTextView.setText("Photographer: " + imageItem.getPhotographer()); // Utilizza lo username fornito
+        holder.contactTextView.setText("Contact: " + imageItem.getImageContact()); // Utilizza l'email fornita
+
     }
 
     @Override
@@ -56,17 +58,17 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
     public static class ImageViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView photographerTextView;
-        TextView descriptionTextView;
         TextView contactTextView;
         TextView titleTextView;
+        TextView descrTextView;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
-            //photographerTextView = itemView.findViewById(R.id.photographerTextView);
+            photographerTextView = itemView.findViewById(R.id.photographerTextView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
-            descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
-            //contactTextView = itemView.findViewById(R.id.contactTextView);
+            descrTextView = itemView.findViewById(R.id.descrTextView);
+            contactTextView = itemView.findViewById(R.id.contactTextView);
 
         }
     }

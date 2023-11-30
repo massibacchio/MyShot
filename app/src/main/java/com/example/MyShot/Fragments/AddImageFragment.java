@@ -20,10 +20,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.MyShot.Activities.MainActivity;
 import com.example.MyShot.Classes.FirebaseWrapper;
 import com.example.MyShot.Classes.ImageItem;
 import com.example.MyShot.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Random;
@@ -34,11 +39,18 @@ public class AddImageFragment extends LogFragment {
     private Uri imageUrl;
     private ImageView imageView;
     private EditText imageTitle;
-    private EditText imageDescription;
+    private EditText imageDescr;
     private boolean valid = false;
 
     //per differenziare i bottoni
     private boolean confirm = false;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    private static final String CHILD_USERS = "Users";
+    private static final String CHILD_USERNAME = "Username";
+    MainActivity mainActivity;
+    private String username;
 
 
 
@@ -61,11 +73,42 @@ public class AddImageFragment extends LogFragment {
     private void writeToDatabase() {
         Random random = new Random();
         int imageId = random.nextInt(Integer.MAX_VALUE);
+        FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
+        String userEmail = auth.getUser().getEmail();
 
-        if (imageDescription.getText().toString().isEmpty() || imageTitle.getText().toString().isEmpty()) {
+        mainActivity = (MainActivity) getActivity();
+
+        DatabaseReference databaseReference = FirebaseDatabase.
+                getInstance("https://myshot-5cef3-default-rtdb.europe-west1.firebasedatabase.app/").
+                getReference().
+                child(CHILD_USERS);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mainActivity = (MainActivity) getActivity();
+                if (mainActivity != null) {
+                    for (DataSnapshot child : snapshot.getChildren()) {
+                        if (child.getKey().equals(auth.getUid())) {
+                            username = child.child(CHILD_USERNAME).getChildren().toString();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
+
+
+        if (imageDescr.getText().toString().isEmpty() || imageTitle.getText().toString().isEmpty()) {
             Toast.makeText(getContext(), "Error: Empty title or description", Toast.LENGTH_LONG).show();
         } else {
-            ImageItem imageItem = new ImageItem(imageUrl.toString(), imageId, imageDescription.getText().toString(), imageTitle.getText().toString());
+            ImageItem imageItem = new ImageItem(imageUrl.toString(), imageId, imageTitle.getText().toString(), userEmail, imageDescr.getText().toString(), username);
             DatabaseReference imageDatabaseRef = FirebaseWrapper.Auth.RTDatabase.getDb();
             if (imageDatabaseRef != null) {
                 new FirebaseWrapper.Auth.RTDatabase().writeDbData(imageItem);
@@ -83,7 +126,7 @@ public class AddImageFragment extends LogFragment {
         externalView = inflater.inflate(R.layout.fragment_add_image, container, false);
         imageView = externalView.findViewById(R.id.imageView);
         imageTitle = externalView.findViewById(R.id.editTextTitle);
-        imageDescription = externalView.findViewById(R.id.editTextDescription);
+        imageDescr = externalView.findViewById(R.id.editTextDescription);
 
         Button AddImageButton = externalView.findViewById(R.id.AddImageButton);
         Button ConfirmButton = externalView.findViewById(R.id.ConfirmButton);

@@ -8,17 +8,21 @@ public class ImageItem implements Serializable{
 
     private String ImageUrl;
     private static int ImageId;
-    private String ImageDescription;
     private String Photographer;
     private String ImageTitle;
 
+    private String ImageContact;
+    private String ImageDescr;
+
     public ImageItem() {}
 
-public ImageItem(String imageUrl, int imageId, String imageDescription, String title) {
+public ImageItem(String imageUrl, int imageId, String title, String contact, String description, String photographer) {
         this.ImageUrl = imageUrl;
         ImageId = imageId;
-        this.ImageDescription = imageDescription;
+        this.ImageDescr = description;
         this.ImageTitle = title;
+        this.ImageContact = contact;
+        this.Photographer = photographer;
 
     }
 
@@ -37,11 +41,15 @@ public ImageItem(String imageUrl, int imageId, String imageDescription, String t
 
     }
     public String getImageDescription() {
-        return ImageDescription;
+        return ImageDescr;
 
     }
     public String getPhotographer() {
         return Photographer;
+
+    }
+    public String getImageContact() {
+        return ImageContact;
 
     }
     public void setImageUrl(String imageUrl){
@@ -57,9 +65,13 @@ public ImageItem(String imageUrl, int imageId, String imageDescription, String t
 
         ImageId =  imageId;
     }
-    public void setDescription(String imageDescription){
+    public void setImageDescription(String imageDescription){
 
-        ImageDescription =  imageDescription;
+        ImageDescr =  imageDescription;
+    }
+    public void setImageContact(String imageContact){
+
+        ImageContact =  imageContact;
     }
     public void setPhotographer(String photographer){
         Photographer =  photographer;
@@ -72,14 +84,15 @@ public ImageItem(String imageUrl, int imageId, String imageDescription, String t
         ImageItem imageItem = (ImageItem) o;
         return ImageUrl.equals(imageItem.ImageUrl) &&
                 Photographer.equals(imageItem.Photographer) &&
-                ImageDescription.equals(imageItem.ImageDescription) &&
                 ImageId == imageItem.ImageId &&
-                ImageTitle.equals(imageItem.ImageTitle);
+                ImageTitle.equals(imageItem.ImageTitle) &&
+                ImageContact.equals(imageItem.ImageContact) &&
+                ImageDescr.equals(imageItem.ImageDescr);
         }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ImageUrl, ImageId, ImageDescription, Photographer, ImageTitle);
+        return Objects.hash(ImageUrl, ImageId, Photographer, ImageTitle, ImageContact, ImageDescr);
     }
 
     public static class Collection<T extends ImageItem> {

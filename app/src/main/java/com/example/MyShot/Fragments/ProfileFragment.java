@@ -31,7 +31,7 @@ import java.util.List;
 public class ProfileFragment extends LogFragment {
     MainActivity mainActivity;
 
-    private ImageView profileImage;
+    private ImageView logoImage;
     private TextView usernameTextView;
     private TextView emailTextView;
 
@@ -95,7 +95,7 @@ public class ProfileFragment extends LogFragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         // Ottieni i riferimenti alle view nel layout
-        profileImage = view.findViewById(R.id.profileImage);
+        logoImage = view.findViewById(R.id.appLogoImageView);
         usernameTextView = view.findViewById(R.id.usernameTextView);
         emailTextView = view.findViewById(R.id.emailTextView);
         recyclerView = view.findViewById(R.id.profileRecyclerView);
