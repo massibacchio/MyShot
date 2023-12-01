@@ -17,17 +17,28 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
 
+    Fragment fragment = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        fragment = new HomeFragment();
+
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainerView, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
 
         // Inizializza il BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         // Imposta il listener per il BottomNavigationView
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            Fragment fragment = null;
+
 
             switch (item.getItemId()) {
                 case R.id.action_fragment1:

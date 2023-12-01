@@ -108,11 +108,11 @@ public class SignupFragment extends LogFragment {
                 }
 
 
-                // Creare il bundle e passare la stringa
+                //Create the bundle to pass the username
                 Bundle bundle = new Bundle();
                 bundle.putString("username", username.getText().toString());
 
-                // Creare il Fragment e impostare il bundle
+                //Create fragment and set the bundle
                 LoginFragment loginFragment = new LoginFragment();
                 loginFragment.setArguments(bundle);
 
