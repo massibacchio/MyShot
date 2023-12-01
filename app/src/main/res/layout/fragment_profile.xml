@@ -2,18 +2,20 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#CAEAF1">
 
     <!-- Nome del fragment fisso in alto -->
     <TextView
         android:id="@+id/fragmentNameTextView"
         android:text="Your Profile"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:layout_gravity="center_vertical"
-        android:gravity="center"
-        android:textColor="@color/purple_700"
-        android:textSize="20sp"/>
+        android:gravity="center_horizontal"
+        android:textColor="@color/blue"
+        android:textSize="50sp"
+        android:textStyle="bold"/>
 
     <!-- Logo dell'app e TextView relative a username ed e-mail al centro -->
     <LinearLayout
@@ -27,10 +29,10 @@
 
         <ImageView
             android:id="@+id/appLogoImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/user"
-            android:layout_gravity="center"/>
+            android:layout_width="181dp"
+            android:layout_height="154dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo1" />
 
         <TextView
             android:id="@+id/usernameTextView"
@@ -38,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textStyle="bold"
-            android:text="Username: JohnDoe"
+            android:text="Username: "
             android:layout_marginTop="8dp"/>
 
         <TextView

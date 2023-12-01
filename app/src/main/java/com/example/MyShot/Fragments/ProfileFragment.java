@@ -40,6 +40,8 @@ public class ProfileFragment extends LogFragment {
     private List<ImageItem> imageData;
     private static final String CHILD_IMAGES = "Images";
     private static final String CHILD_USERS = "Users";
+    private static final String CHILD_USERNAME = "Username";
+    private String username;
 
     private ImageItem.Collection<ImageItem> queryCollection = null;
     static List<ImageItem> queryList = new ArrayList<ImageItem>();
@@ -103,16 +105,33 @@ public class ProfileFragment extends LogFragment {
         // Crea un'istanza di FirebaseWrapper.Auth per accedere all'oggetto utente corrente
         FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
 
-        // Ottieni l'ID utente corrente
-        String userId = auth.getUid();
+        mainActivity = (MainActivity) getActivity();
 
-        if (userId != null) {
-            // Associalo alla tua vista usernameTextView
-            usernameTextView.setText("User ID: " + userId);
-        } else {
-            // Se l'ID utente è nullo, gestisci di conseguenza
-            usernameTextView.setText("User ID not available");
-        }
+        DatabaseReference databaseReference = FirebaseDatabase.
+                getInstance("https://myshot-5cef3-default-rtdb.europe-west1.firebasedatabase.app/").
+                getReference().
+                child(CHILD_USERS);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mainActivity = (MainActivity) getActivity();
+                if (mainActivity != null) {
+                    for (DataSnapshot child : snapshot.getChildren()) {
+                        if (child.getKey().equals(auth.getUid())) {
+                            username = child.child(CHILD_USERNAME).getValue().toString();
+                            usernameTextView.setText("User ID: " + username);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
 
         String userEmail = auth.getUser().getEmail();
 

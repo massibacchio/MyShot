@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.HomeFragment">
+    tools:context=".Fragments.HomeFragment"
+    android:background="#CAEAF1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,18 +15,19 @@
 
         <TextView
             android:id="@+id/titleTextView"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
             android:text="Home"
-            android:textColor="@color/purple_700"
-            android:textSize="20sp" />
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:textColor="@color/blue"
+            android:textSize="50sp"
+            android:textStyle="bold" />
 
-    <LinearLayout
+    <RelativeLayout
         android:background="@drawable/button_border"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:id="@+id/linearLayout"
@@ -33,22 +35,24 @@
 
         <EditText
             android:id="@+id/userEmail"
-            android:layout_width="245dp"
-            android:layout_height="42dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:hint="@string/searchbar"
             android:autofillHints="@string/searchbar"
-            android:backgroundTint="@color/grey"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="20dp"
+            android:backgroundTint="#CAEAF1"/>
 
         <ImageView
             android:id="@+id/searchicon"
             android:layout_width="30dp"
             android:layout_height="27dp"
             android:src="@drawable/searchicon"
-            android:layout_marginTop="6dp"/>
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"/>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

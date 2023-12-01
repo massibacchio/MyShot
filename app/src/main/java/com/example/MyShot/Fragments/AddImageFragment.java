@@ -90,7 +90,18 @@ public class AddImageFragment extends LogFragment {
                 if (mainActivity != null) {
                     for (DataSnapshot child : snapshot.getChildren()) {
                         if (child.getKey().equals(auth.getUid())) {
-                            username = child.child(CHILD_USERNAME).getChildren().toString();
+                            username = child.child(CHILD_USERNAME).getValue().toString();
+                        }
+                    }
+                    if (imageDescr.getText().toString().isEmpty() || imageTitle.getText().toString().isEmpty()) {
+                        Toast.makeText(getContext(), "Error: Empty title or description", Toast.LENGTH_LONG).show();
+                    } else {
+                        ImageItem imageItem = new ImageItem(imageUrl.toString(), imageId, imageTitle.getText().toString(), userEmail, imageDescr.getText().toString(), username);
+                        DatabaseReference imageDatabaseRef = FirebaseWrapper.Auth.RTDatabase.getDb();
+                        if (imageDatabaseRef != null) {
+                            new FirebaseWrapper.Auth.RTDatabase().writeDbData(imageItem);
+                        } else {
+                            Log.e(TAG, "Database reference is null.");
                         }
                     }
                 }
@@ -100,25 +111,8 @@ public class AddImageFragment extends LogFragment {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-
         });
-
-
-
-        if (imageDescr.getText().toString().isEmpty() || imageTitle.getText().toString().isEmpty()) {
-            Toast.makeText(getContext(), "Error: Empty title or description", Toast.LENGTH_LONG).show();
-        } else {
-            ImageItem imageItem = new ImageItem(imageUrl.toString(), imageId, imageTitle.getText().toString(), userEmail, imageDescr.getText().toString(), username);
-            DatabaseReference imageDatabaseRef = FirebaseWrapper.Auth.RTDatabase.getDb();
-            if (imageDatabaseRef != null) {
-                new FirebaseWrapper.Auth.RTDatabase().writeDbData(imageItem);
-            } else {
-                Log.e(TAG, "Database reference is null.");
-            }
-        }
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
