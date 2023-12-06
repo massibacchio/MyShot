@@ -13,20 +13,20 @@
 
         <TextView
             android:id="@+id/titleTextView"
-            android:text="New photo"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_gravity="center_vertical"
             android:gravity="center_horizontal"
+            android:text="New photo"
             android:textColor="@color/blue"
             android:textSize="50sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/titleTextView"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="1dp"
             android:fillViewport="true"
             android:padding="10dp">
 
@@ -46,31 +46,59 @@
                     android:textSize="25sp"
                     android:textStyle="bold" />
 
+            <LinearLayout
+                android:background="@drawable/button_border"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true">
 
                 <EditText
                     android:id="@+id/editTextTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Insert title" />
+                    android:layout_width="325dp"
+                    android:layout_height="50dp"
+                    android:hint="@string/insert_title"
+                    android:autofillHints="@string/insert_title"
+                    android:background="@drawable/button_border"
+                    android:paddingLeft="20dp"/>
+            </LinearLayout>
 
-                <!-- EditText per inserire la descrizione -->
+            <LinearLayout
+                android:background="@drawable/button_border"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout2"
+                android:layout_below="@+id/linearLayout"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+
                 <EditText
                     android:id="@+id/editTextDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Insert description" />
+                    android:layout_width="325dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/linearLayout"
+                    android:hint="@string/insert_description"
+                    android:autofillHints="@string/insert_description"
+                    android:background="@drawable/button_border"
+                    android:paddingLeft="20dp"
+                    />
+            </LinearLayout>
 
                 <Button
                     android:id="@+id/AddImageButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="325dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:backgroundTint="@color/blue"
-                    android:text="Pick an image from gallery"
+                    android:layout_marginStart="1dp"
+                    android:background="@drawable/button_border"
+                    android:backgroundTint="#5271FF"
+                    android:text="@string/pick_image_from_gallery"
                     android:textColor="@color/white"
-                    android:layout_marginTop="10dp">
+                    android:textSize="18dp"
+                    android:layout_marginTop="10dp"/>
 
-                </Button>
+
 
 
                 <ImageView
@@ -82,14 +110,17 @@
                     android:maxHeight="200dp"
                     android:scaleType="fitCenter"/>
 
-                <Button
-                    android:id="@+id/ConfirmButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:backgroundTint="@color/red"
-                    android:text="Confirm"
-                    android:textColor="@color/white" />
+            <Button
+                android:id="@+id/ConfirmButton"
+                android:layout_width="325dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:background="@drawable/confirmbutton_border"
+                android:backgroundTint="#9CF11414"
+                android:text="@string/confirm"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:layout_marginTop="10dp" />
 
 
             </LinearLayout>

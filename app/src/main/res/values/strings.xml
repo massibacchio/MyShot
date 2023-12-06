@@ -15,4 +15,8 @@
     <string name="signup">Sign Up</string>
     <string name="button">Button</string>
     <string name="searchbar">Search</string>
+    <string name="insert_description">Insert description</string>
+    <string name="insert_title">Insert title</string>
+    <string name="pick_image_from_gallery">Pick image from gallery</string>
+    <string name="confirm">Confirm</string>
 </resources>
