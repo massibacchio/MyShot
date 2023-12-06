@@ -31,6 +31,7 @@
             android:background="@drawable/button_border"
             android:hint="@string/insertEmail"
             android:autofillHints="@string/insertEmail"
+            android:fontFamily="@font/josefinsansregular"
             android:inputType="textEmailAddress"
             android:paddingLeft="20dp"/>
 
@@ -57,6 +58,7 @@
             android:background="@drawable/button_border"
             android:hint="@string/insertPassword"
             android:autofillHints="@string/insertPassword"
+            android:fontFamily="@font/josefinsansregular"
             android:inputType="textPassword"
             android:paddingStart="20dp"/>
 
@@ -73,6 +75,7 @@
         android:background="@drawable/button_border"
         android:backgroundTint="#5271FF"
         android:text="SIGN IN"
+        android:fontFamily="@font/josefinsansregular"
         android:textColor="@color/white"
         android:textSize="18dp"/>
 
@@ -82,6 +85,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/goToRegistration"
+        android:fontFamily="@font/josefinsansregular"
         android:layout_below="@+id/logButton"/>
 
 

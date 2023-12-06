@@ -18,8 +18,9 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_horizontal"
             android:text="New photo"
+            android:fontFamily="@font/josefinsansregular"
             android:textColor="@color/blue"
-            android:textSize="50sp"
+            android:textSize="45sp"
             android:textStyle="bold" />
 
         <ScrollView
@@ -42,8 +43,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:text="Insert image details"
+                    android:fontFamily="@font/josefinsansthin"
                     android:textAlignment="center"
-                    android:textSize="25sp"
+                    android:textSize="35sp"
                     android:textStyle="bold" />
 
             <LinearLayout
@@ -61,6 +63,7 @@
                     android:layout_height="50dp"
                     android:hint="@string/insert_title"
                     android:autofillHints="@string/insert_title"
+                    android:fontFamily="@font/josefinsansregular"
                     android:background="@drawable/button_border"
                     android:paddingLeft="20dp"/>
             </LinearLayout>
@@ -80,6 +83,7 @@
                     android:layout_height="50dp"
                     android:layout_below="@+id/linearLayout"
                     android:hint="@string/insert_description"
+                    android:fontFamily="@font/josefinsansregular"
                     android:autofillHints="@string/insert_description"
                     android:background="@drawable/button_border"
                     android:paddingLeft="20dp"
@@ -96,19 +100,17 @@
                     android:text="@string/pick_image_from_gallery"
                     android:textColor="@color/white"
                     android:textSize="18dp"
+                    android:fontFamily="@font/josefinsansregular"
                     android:layout_marginTop="10dp"/>
-
-
-
 
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
-                    android:layout_height="379dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="336dp"
+                    android:layout_marginTop="5dp"
                     android:maxWidth="200dp"
                     android:maxHeight="200dp"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitCenter" />
 
             <Button
                 android:id="@+id/ConfirmButton"
@@ -118,6 +120,7 @@
                 android:background="@drawable/confirmbutton_border"
                 android:backgroundTint="#9CF11414"
                 android:text="@string/confirm"
+                android:fontFamily="@font/josefinsansregular"
                 android:textColor="@color/white"
                 android:textSize="18dp"
                 android:layout_marginTop="10dp" />

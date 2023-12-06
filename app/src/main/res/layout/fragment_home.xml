@@ -21,6 +21,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_horizontal"
             android:textColor="@color/blue"
+            android:fontFamily="@font/josefinsansregular"
             android:textSize="50sp"
             android:textStyle="bold" />
 
