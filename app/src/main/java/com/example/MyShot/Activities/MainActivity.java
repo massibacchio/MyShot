@@ -2,10 +2,8 @@ package com.example.MyShot.Activities;
 
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import com.example.MyShot.Fragments.AddImageFragment;
 import com.example.MyShot.Fragments.HomeFragment;
 import com.example.MyShot.Fragments.ProfileFragment;
@@ -18,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
 
     Fragment fragment = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
         // Imposta il listener per il BottomNavigationView
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
-
             switch (item.getItemId()) {
                 case R.id.action_fragment1:
                     fragment = new HomeFragment();
                     break;
+
                 case R.id.action_fragment2:
                     fragment = new AddImageFragment();
                     break;
@@ -51,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.action_fragment3:
                     fragment = new ProfileFragment();
                     break;
-
-
             }
 
             if (fragment != null) {
@@ -61,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
                         .addToBackStack(null)
                         .commit();
             }
-
             return true;
         });
     }

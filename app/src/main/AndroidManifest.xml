@@ -41,7 +41,6 @@
         <activity
             android:name=".Activities.SplashActivity"
             android:exported="false">
-
         </activity>
     </application>
 

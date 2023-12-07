@@ -41,7 +41,6 @@ public class ProfileFragment extends LogFragment {
     private static final String CHILD_USERS = "Users";
     private static final String CHILD_USERNAME = "Username";
     private String username;
-
     private ImageItem.Collection<ImageItem> queryCollection = null;
     static List<ImageItem> queryList = new ArrayList<ImageItem>();
 
@@ -95,13 +94,13 @@ public class ProfileFragment extends LogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        // Ottieni i riferimenti alle view nel layout
+        //riferimenti alle view nel layout
         logoImage = view.findViewById(R.id.appLogoImageView);
         usernameTextView = view.findViewById(R.id.usernameTextView);
         emailTextView = view.findViewById(R.id.emailTextView);
         recyclerView = view.findViewById(R.id.profileRecyclerView);
 
-        // Crea un'istanza di FirebaseWrapper.Auth per accedere all'oggetto utente corrente
+        //istanza di FirebaseWrapper.Auth per accedere all'oggetto utente corrente
         FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
 
         mainActivity = (MainActivity) getActivity();
@@ -119,7 +118,7 @@ public class ProfileFragment extends LogFragment {
                     for (DataSnapshot child : snapshot.getChildren()) {
                         if (child.getKey().equals(auth.getUid())) {
                             username = child.child(CHILD_USERNAME).getValue().toString();
-                            usernameTextView.setText("User ID: " + username);
+                            usernameTextView.setText("User ID:" +username);
                         }
                     }
                 }
@@ -135,10 +134,10 @@ public class ProfileFragment extends LogFragment {
         String userEmail = auth.getUser().getEmail();
 
         if (userEmail != null) {
-            // Associalo alla tua vista emailTextView
+            
             emailTextView.setText("Email: " + userEmail);
         } else {
-            // Se l'email è nullo, gestisci di conseguenza
+
             emailTextView.setText("Email not available");
         }
 

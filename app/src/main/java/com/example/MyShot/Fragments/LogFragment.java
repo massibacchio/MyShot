@@ -17,7 +17,7 @@ public abstract class LogFragment extends Fragment {
     protected Class[] callbackPrms;
 
 
-    //il metodo LogFragement genera un oggetto di tipo Login o SignUp (che estenda LoGfragment)
+    //il metodo LogFragment genera un oggetto di tipo Login o SignUp (che estenda LoGfragment)
     //uso java reflection
     public static LogFragment newInstance(Class<? extends LogFragment> clazz,  String param1, Class<?>... prms) {
 
