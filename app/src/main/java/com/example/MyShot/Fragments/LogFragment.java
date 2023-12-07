@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-//questa classe contiene il codice in comune tra LoginFragment e Login frgament
 
 public abstract class LogFragment extends Fragment {
 
@@ -25,10 +24,7 @@ public abstract class LogFragment extends Fragment {
         //LoginFragment fragment = new LoginFragment();
         LogFragment instance = null;
         try {
-            //creo un'istanza di questo fragment; dichiaro costruttore
             Constructor<?> constructor = clazz.getConstructor();
-
-            //invoco costruttore
             instance = (LogFragment) constructor.newInstance();
 
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException |
@@ -47,24 +43,10 @@ public abstract class LogFragment extends Fragment {
     }
 
     protected void initArguments() {
-        /* NOTE: You can pass some args to the fragment in the Bundle object
-        In the caller (Activity) context:
-            ```
-            Bundle bundle = new Bundle();
-            String myMessage = "This is a message";
-            bundle.putString("param_name", myMessage );
-            ```
-        In the onCreate of the Fragment class:
-            ```
-            if (getArguments() != null) {
-                mParam1 = getArguments().getString("param_name");
-            }
-            ```
-        */
+
         if (getArguments() != null) {
             this.callbackName = getArguments().getString(ARG_PARAM1);
             this.callbackPrms = (Class[]) getArguments().getSerializable(ARG_PARAM2);
         }
     }
-
 }

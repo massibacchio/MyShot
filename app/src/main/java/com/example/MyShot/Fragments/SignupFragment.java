@@ -139,9 +139,7 @@ public class SignupFragment extends LogFragment {
         });
 
         return externalView;
-
     }
-
 }
 
 

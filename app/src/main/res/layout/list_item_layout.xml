@@ -11,23 +11,20 @@
     app:cardBackgroundColor="@android:color/white"
     android:layout_marginBottom="10dp"
     android:layout_margin="5dp"
-    app:strokeColor="@color/purple_700"
+    app:strokeColor="@color/blue"
     app:strokeWidth="1dp">
 
-    <!-- Layout orizzontale per posizionare l'immagine a sinistra e i campi Author e Description a destra -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <!-- ImageView per l'immagine (a sinistra) -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="127dp"
             android:layout_height="match_parent"
             android:scaleType="fitXY" />
 
-        <!-- Layout verticale per i campi (a destra) -->
         <LinearLayout
             android:layout_width="186dp"
             android:layout_height="wrap_content"

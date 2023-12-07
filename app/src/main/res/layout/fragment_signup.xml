@@ -71,7 +71,6 @@
                 android:id="@+id/userPassword"
                 android:layout_width="290dp"
                 android:layout_height="50dp"
-                android:layout_below="@+id/linearLayout2"
                 android:inputType="textPassword"
                 android:hint="@string/insertPassword"
                 android:fontFamily="@font/josefinsansregular"
@@ -95,7 +94,6 @@
                 android:id="@+id/userPasswordAgain"
                 android:layout_width="290dp"
                 android:layout_height="50dp"
-                android:layout_below="@+id/linearLayout3"
                 android:inputType="textPassword"
                 android:hint="@string/insertPasswordAgain"
                 android:fontFamily="@font/josefinsansregular"
@@ -103,7 +101,6 @@
                 android:autofillHints="@string/insertPasswordAgain"
                 android:backgroundTint="#CAEAF1"/>
     </LinearLayout>
-
 
     <Button
         android:id="@+id/SignupButton"
@@ -118,14 +115,14 @@
         android:text="@string/signup"
         android:fontFamily="@font/josefinsansregular"
         android:textColor="@color/white"
-        android:textSize="18dp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/switchRegisterToLoginLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/goToRegistration"
+        android:text="@string/goToLogin"
         android:fontFamily="@font/josefinsansregular"
         android:layout_below="@+id/SignupButton"/>
 

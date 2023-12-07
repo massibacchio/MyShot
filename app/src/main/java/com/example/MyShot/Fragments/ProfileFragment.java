@@ -34,7 +34,6 @@ public class ProfileFragment extends LogFragment {
     private ImageView logoImage;
     private TextView usernameTextView;
     private TextView emailTextView;
-
     private RecyclerView recyclerView;
     private ImageListAdapter adapter;
     private List<ImageItem> imageData;

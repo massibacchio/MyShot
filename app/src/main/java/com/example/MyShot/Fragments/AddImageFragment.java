@@ -34,15 +34,12 @@ import com.squareup.picasso.Picasso;
 import java.util.Random;
 
 public class AddImageFragment extends LogFragment {
-
     View externalView;
     private Uri imageUrl;
     private ImageView imageView;
     private EditText imageTitle;
     private EditText imageDescr;
     private boolean valid = false;
-
-    //per differenziare i bottoni
     private boolean confirm = false;
 
     FirebaseDatabase firebaseDatabase;

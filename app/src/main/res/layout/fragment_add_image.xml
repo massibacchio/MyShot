@@ -17,7 +17,7 @@
             android:layout_height="70dp"
             android:layout_gravity="center_vertical"
             android:gravity="center_horizontal"
-            android:text="New photo"
+            android:text="@string/new_photo"
             android:fontFamily="@font/josefinsansregular"
             android:textColor="@color/blue"
             android:textSize="45sp"
@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:text="Insert image details"
+                    android:text="@string/insert_image_details"
                     android:fontFamily="@font/josefinsansthin"
                     android:textAlignment="center"
                     android:textSize="35sp"
@@ -53,9 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/linearLayout"
-                android:orientation="vertical"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true">
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/editTextTitle"
@@ -65,7 +63,7 @@
                     android:autofillHints="@string/insert_title"
                     android:fontFamily="@font/josefinsansregular"
                     android:background="@drawable/button_border"
-                    android:paddingLeft="20dp"/>
+                    android:paddingStart="20dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -73,7 +71,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/linearLayout2"
-                android:layout_below="@+id/linearLayout"
                 android:orientation="vertical"
                 android:layout_marginTop="10dp">
 
@@ -124,10 +121,7 @@
                 android:textColor="@color/white"
                 android:textSize="18dp"
                 android:layout_marginTop="10dp" />
-
-
             </LinearLayout>
-
         </ScrollView>
     </RelativeLayout>
 </FrameLayout>

@@ -27,9 +27,7 @@ import java.util.List;
 
 public class HomeFragment extends LogFragment {
     MainActivity mainActivity;
-
     private final static String TAG = FirebaseWrapper.Callback.class.getCanonicalName();
-
     View externalView;
     private RecyclerView recyclerView;
     private ImageListAdapter adapter;
@@ -51,9 +49,6 @@ public class HomeFragment extends LogFragment {
                 getInstance("https://myshot-5cef3-default-rtdb.europe-west1.firebasedatabase.app/").
                 getReference().
                 child(CHILD_USERS);
-
-
-
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -94,7 +89,6 @@ public class HomeFragment extends LogFragment {
         return externalView;
     }
 
-    //
     protected void RunRecyclerView() {
         mainActivity = (MainActivity) getActivity();
         if (recyclerView != null) {
@@ -105,5 +99,4 @@ public class HomeFragment extends LogFragment {
             recyclerView.setAdapter(adapter);
         }
     }
-
 }
