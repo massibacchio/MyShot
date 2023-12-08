@@ -50,8 +50,6 @@ public class ProfileFragment extends LogFragment {
         this.initArguments();
 
 
-        mainActivity = (MainActivity) getActivity();
-
         DatabaseReference databaseReference = FirebaseDatabase.
                 getInstance("https://myshot-5cef3-default-rtdb.europe-west1.firebasedatabase.app/").
                 getReference().
@@ -103,7 +101,6 @@ public class ProfileFragment extends LogFragment {
         //istanza di FirebaseWrapper.Auth per accedere all'oggetto utente corrente
         FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
 
-        mainActivity = (MainActivity) getActivity();
 
         DatabaseReference databaseReference = FirebaseDatabase.
                 getInstance("https://myshot-5cef3-default-rtdb.europe-west1.firebasedatabase.app/").
@@ -117,8 +114,11 @@ public class ProfileFragment extends LogFragment {
                 if (mainActivity != null) {
                     for (DataSnapshot child : snapshot.getChildren()) {
                         if (child.getKey().equals(auth.getUid())) {
-                            username = child.child(CHILD_USERNAME).getValue().toString();
-                            usernameTextView.setText("User ID:" +username);
+                            DataSnapshot usernamechild = child.child(CHILD_USERNAME);
+                            if (usernamechild.getValue() != null){
+                                username= usernamechild.getValue().toString();
+                                usernameTextView.setText("User ID:" +username);
+                            }
                         }
                     }
                 }
