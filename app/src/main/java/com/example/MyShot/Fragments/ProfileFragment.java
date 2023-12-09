@@ -65,10 +65,10 @@ public class ProfileFragment extends LogFragment {
                     queryList.clear();
                     for (DataSnapshot child : snapshot.getChildren()) {
                         if (child.getKey().equals(auth.getUid())) {
-                            Iterable<DataSnapshot> ImageChildren = child.child(CHILD_IMAGES).getChildren();
-                            for (DataSnapshot childIm : ImageChildren) {
-                                ImageItem img = childIm.getValue(ImageItem.class);
-                                queryList.add(img);
+                            DataSnapshot usernamechild = child.child(CHILD_USERNAME);
+                            if (usernamechild.getValue() != null){
+                                username= usernamechild.getValue().toString();
+                                usernameTextView.setText("User ID:" +username);
                             }
                         }
                     }
