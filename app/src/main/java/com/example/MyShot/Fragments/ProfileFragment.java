@@ -30,7 +30,6 @@ import java.util.List;
 
 public class ProfileFragment extends LogFragment {
     MainActivity mainActivity;
-
     private ImageView logoImage;
     private TextView usernameTextView;
     private TextView emailTextView;
@@ -65,10 +64,10 @@ public class ProfileFragment extends LogFragment {
                     queryList.clear();
                     for (DataSnapshot child : snapshot.getChildren()) {
                         if (child.getKey().equals(auth.getUid())) {
-                            DataSnapshot usernamechild = child.child(CHILD_USERNAME);
-                            if (usernamechild.getValue() != null){
-                                username= usernamechild.getValue().toString();
-                                usernameTextView.setText("User ID:" +username);
+                            Iterable<DataSnapshot> ImageChildren = child.child(CHILD_IMAGES).getChildren();
+                            for (DataSnapshot childIm : ImageChildren) {
+                                ImageItem img = childIm.getValue(ImageItem.class);
+                                queryList.add(img);
                             }
                         }
                     }
@@ -90,9 +89,11 @@ public class ProfileFragment extends LogFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        //riferimenti alle view nel layout
+        //view references
+        usernameTextView = view.findViewById(R.id.usernameTextView);
         logoImage = view.findViewById(R.id.appLogoImageView);
         usernameTextView = view.findViewById(R.id.usernameTextView);
         emailTextView = view.findViewById(R.id.emailTextView);
@@ -100,7 +101,6 @@ public class ProfileFragment extends LogFragment {
 
         //istanza di FirebaseWrapper.Auth per accedere all'oggetto utente corrente
         FirebaseWrapper.Auth auth = new FirebaseWrapper.Auth();
-
 
         DatabaseReference databaseReference = FirebaseDatabase.
                 getInstance("https://myshot-5cef3-default-rtdb.europe-west1.firebasedatabase.app/").
@@ -117,7 +117,7 @@ public class ProfileFragment extends LogFragment {
                             DataSnapshot usernamechild = child.child(CHILD_USERNAME);
                             if (usernamechild.getValue() != null){
                                 username= usernamechild.getValue().toString();
-                                usernameTextView.setText("User ID:" +username);
+                                usernameTextView.setText("Username: " +username);
                             }
                         }
                     }
